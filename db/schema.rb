@@ -16,12 +16,11 @@ ActiveRecord::Schema.define(version: 20170331043425) do
     t.string   "subject"
     t.text     "content"
     t.datetime "due_date"
+    t.binary   "attachment", limit: 10485760
     t.integer  "group_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["group_id"], name: "index_assignments_on_group_id"
-    t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
   create_table "belongings", force: :cascade do |t|

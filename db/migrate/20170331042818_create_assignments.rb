@@ -4,8 +4,8 @@ class CreateAssignments < ActiveRecord::Migration[5.0]
       t.string :subject
       t.text :content
       t.datetime :due_date
+      t.binary :attachment, :limit => 10.megabyte
       t.references :group, foreign_key: true
-      t.references :user, foreign_key: true
 
       t.timestamps
     end

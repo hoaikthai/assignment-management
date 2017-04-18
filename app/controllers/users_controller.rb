@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 	def show
 		if user = User.find(params[:id])
-			render json: user, status: 200
+			render json: { user: user }, status: 200
 		else
 			render json: { errors: "User not found" }, status: 404
 		end

@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
 gem 'faker'
+gem 'active_model_serializers', '0.9.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -6,7 +6,14 @@ class GroupsController < ApplicationController
 			belongings = user.belongings
 			groups = Array.new
 			belongings.each { |b| groups << Group.find_by(id: b.group_id) }
-			render json: groups, status: 200
+			render(
+      json: ActiveModel::ArraySerializer.new(
+        groups,
+        each_serializer: GroupSerializer,
+        root: 'groups',
+      ),
+      status: 200
+    )
 		else
 			render json: { errors: "User not valid" }, status: 422
 		end

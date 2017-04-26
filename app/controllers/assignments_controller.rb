@@ -13,10 +13,38 @@ class AssignmentsController < ApplicationController
 		end
 	end
 
+	def get_assignments
+		user = User.find_by(id: params[:user_id])
+		if user.role == "student"
+			belongings = user.belongings
+			groups = Array.new
+			belongings.each { |b| groups << Group.find_by(id: b.group_id) }
+			assignments = Array.new
+			groups.each { |g| assignments << g.assignments }
+			unless assignments.compact.empty?
+				render(
+		      json: ActiveModel::ArraySerializer.new(
+		        assignments,
+		        each_serializer: AssignmentSerializer,
+		        root: 'assignments',
+		      ),
+		      status: 200
+		    )
+		  else
+		   	render json: { error: "Fail to get assignments" }, status: 400
+		  end
+		else
+		 	render json: { errors: "User not valid" }, status: 422
+		end
+	end
+
 	def destroy
 		assignment = Assignment.find_by(id: params[:assignment_id])
-		assignment.delete
-		render json: { message: "Delete successfully" }, status: 200
+		if assignment.delete
+			render json: { message: "Delete successfully" }, status: 200
+		else
+			render json: { error: "Failed to delete assignment" }, status: 400
+		end
 	end
 
 end

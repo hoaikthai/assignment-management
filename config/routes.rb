@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post '/get_groups', to: 'groups#get_groups'
   resources :users, only: [:show, :update]
   resources :assignments, only: [:create, :destroy]
+  resources :submissions, only: [:create]
 end

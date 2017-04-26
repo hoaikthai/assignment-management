@@ -1,3 +1,3 @@
 class AssignmentSerializer < BaseSerializer
-  attributes :id, :group_name
+  attributes :id, :subject, :content, :due_date, :attachment, :group_id
 end

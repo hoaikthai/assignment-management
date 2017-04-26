@@ -1,3 +1,3 @@
 class GroupSerializer < BaseSerializer
-  attributes :id, :subject, :content, :due_date, :attachment, :group_id
+	attributes :id, :group_name
 end

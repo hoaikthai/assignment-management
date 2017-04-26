@@ -9,8 +9,14 @@ class AssignmentsController < ApplicationController
 		if assignment.save
 			render json: assignment, status: 201
 		else
-			render json: { errors: "Assignment error" }, status: 400
+			render json: { error: "Assignment error" }, status: 400
 		end
+	end
+
+	def destroy
+		assignment = Assignment.find_by(id: params[:assignment_id])
+		assignment.delete
+		render json: { message: "Delete successfully" }, status: 200
 	end
 
 end

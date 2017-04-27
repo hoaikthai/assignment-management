@@ -20,7 +20,11 @@ class AssignmentsController < ApplicationController
 			groups = Array.new
 			belongings.each { |b| groups << Group.find_by(id: b.group_id) }
 			assignments = Array.new
-			groups.each { |g| assignments << g.assignments }
+			groups.each do |g|
+				g.assignments.each do |a|
+					assignments << a
+				end
+			end	
 			unless assignments.compact.empty?
 				render(
 		      json: ActiveModel::ArraySerializer.new(

@@ -1,3 +1,3 @@
 class UserSerializer < BaseSerializer
-  attributes :id, :email, :name, :gender, :birthday, :address
+  attributes :id, :email, :name, :gender, :birthday, :address, :role
 end

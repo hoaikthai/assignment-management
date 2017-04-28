@@ -51,4 +51,9 @@ class AssignmentsController < ApplicationController
 		end
 	end
 
+	private
+		def assignment_params
+			params.require(:assignment).permit(:subject, :content, :due_date, :attachment, :group_id)
+		end
+
 end

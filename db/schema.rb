@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331043425) do
+ActiveRecord::Schema.define(version: 20170429040819) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "subject"
@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 20170331043425) do
     t.integer  "group_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "user_id"
     t.index ["group_id"], name: "index_assignments_on_group_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
   create_table "belongings", force: :cascade do |t|
@@ -47,7 +49,9 @@ ActiveRecord::Schema.define(version: 20170331043425) do
     t.binary   "attachment",    limit: 10485760
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "group_id"
     t.index ["assignment_id"], name: "index_submissions_on_assignment_id"
+    t.index ["group_id"], name: "index_submissions_on_group_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 

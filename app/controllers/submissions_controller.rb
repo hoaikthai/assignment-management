@@ -1,10 +1,6 @@
 class SubmissionsController < ApplicationController
 	def create
-		submission = Submission.new(user_id: params[:user_id],
-																assignment_id: params[:assignment_id],
-																sub_date: Time.now,
-																attachment: params[:attachment],
-																group_id: params[:group_id])
+		submission = Submission.new(submission_params)
 		if submission.save
 			render json: submission, status: 201
 		else
@@ -27,4 +23,9 @@ class SubmissionsController < ApplicationController
 	   	render json: { error: "Fail to get submissions" }, status: 400
 	  end
 	end
+
+	private
+		def submission_params
+			params.require(:submission).permit(:user_id, :assignment_id, :attachment, :group_id)
+		end
 end

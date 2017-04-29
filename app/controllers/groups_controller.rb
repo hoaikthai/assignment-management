@@ -3,12 +3,9 @@ class GroupsController < ApplicationController
 	def get_groups
 		user = User.find_by(id: params[:user_id])
 		if user.role == "teacher"
-			belongings = user.belongings
-			groups = Array.new
-			belongings.each { |b| groups << Group.find_by(id: b.group_id) }
 			render(
       json: ActiveModel::ArraySerializer.new(
-        groups,
+        user.groups,
         each_serializer: GroupSerializer,
         root: 'groups',
       ),

@@ -18,10 +18,7 @@ class AssignmentsController < ApplicationController
 		user = User.find_by(id: params[:user_id])
 		assignments = Array.new
 		if user.role == "student"
-			belongings = user.belongings
-			groups = Array.new
-			belongings.each { |b| groups << Group.find_by(id: b.group_id) }
-			groups.each do |g|
+			user.groups.each do |g|
 				g.assignments.each do |a|
 					assignments << a
 				end

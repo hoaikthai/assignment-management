@@ -2,6 +2,7 @@ class SubmissionsController < ApplicationController
 	def create
 		submission = Submission.new(submission_params)
 		if submission.save
+			submission.update_attributes(sub_date: Time.now)
 			render json: submission, status: 201
 		else
 			render json: { error: "Submission error" }, status: 400

@@ -1,15 +1,20 @@
 class SubmissionsController < ApplicationController
 	def create
 		submission = Submission.new(submission_params)
-		if Submission.find_by(user_id: submission.user_id, assignment_id: assignment_id).nil?
-			if submission.save
-				submission.update_attributes(sub_date: Time.now)
-				render json: submission, status: 201
+		assignment = Assignment.find_by(id: submission.assignment_id)
+		if assignment.due_date >= Time.now
+			if Submission.find_by(user_id: submission.user_id, assignment_id: assignment_id).nil?
+				if submission.save
+					submission.update_attributes(sub_date: Time.now)
+					render json: submission, status: 201
+				else
+					render json: { error: "Submission error" }, status: 400
+				end
 			else
-				render json: { error: "Submission error" }, status: 400
+				render json: { error: "Cannot submit 2 times "}, status: 200
 			end
 		else
-			render json: { error: "Cannot submit 2 times "}, status: 200
+			render json: { error: "Submission time has expired"}, status: 200
 		end
 	end
 

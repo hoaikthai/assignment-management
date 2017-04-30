@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   post '/get_submissions', to: 'submissions#get_submissions'
   resources :users, only: [:show, :update]
   resources :assignments, only: [:create, :destroy]
-  resources :submissions, only: [:create]
+  resources :submissions, only: [:create, :destroy]
 end

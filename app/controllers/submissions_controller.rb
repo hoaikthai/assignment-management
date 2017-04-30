@@ -1,11 +1,15 @@
 class SubmissionsController < ApplicationController
 	def create
 		submission = Submission.new(submission_params)
-		if submission.save
-			submission.update_attributes(sub_date: Time.now)
-			render json: submission, status: 201
+		if Submission.find_by(user_id: submission.user_id, assignment_id: assignment_id).nil?
+			if submission.save
+				submission.update_attributes(sub_date: Time.now)
+				render json: submission, status: 201
+			else
+				render json: { error: "Submission error" }, status: 400
+			end
 		else
-			render json: { error: "Submission error" }, status: 400
+			render json: { error: "Cannot submit 2 times "}, status: 200
 		end
 	end
 
@@ -23,6 +27,11 @@ class SubmissionsController < ApplicationController
 	  else
 	   	render json: { error: "Fail to get submissions" }, status: 400
 	  end
+	end
+
+	def destroy
+		submission = Submission.find_by(user_id: params[:user_id], assignment_id: params[:assignment_id])
+		submission.delete unless submission.nil?
 	end
 
 	private

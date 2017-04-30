@@ -20,7 +20,7 @@ class AssignmentsController < ApplicationController
 		if user.role == "student"
 			user.groups.each do |g|
 				g.assignments.each do |a|
-					assignments << a
+					assignments << a if a.due_date < Time.now
 				end
 			end	
 		elsif user.role == "teacher"

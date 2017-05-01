@@ -3,7 +3,7 @@ class SubmissionsController < ApplicationController
 		submission = Submission.new(submission_params)
 		assignment = Assignment.find_by(id: submission.assignment_id)
 		if assignment.due_date >= Time.now
-			if Submission.find_by(user_id: submission.user_id, assignment_id: assignment_id).nil?
+			if Submission.find_by(user_id: submission.user_id, assignment_id: submission.assignment_id).nil?
 				if submission.save
 					submission.update_attributes(sub_date: Time.now)
 					render json: submission, status: 201

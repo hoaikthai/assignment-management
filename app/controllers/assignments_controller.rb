@@ -1,12 +1,7 @@
 class AssignmentsController < ApplicationController
 
 	def create
-		assignment = Assignment.new(subject: params[:subject],
-																content: params[:content],
-																due_date: params[:due_date],
-																attachment: params[:attachment],
-																group_id: params[:group_id],
-																user_id: params[:user_id])
+		assignment = Assignment.new(assignment_params)
 		if assignment.save
 			render json: assignment, status: 201
 		else
@@ -53,7 +48,7 @@ class AssignmentsController < ApplicationController
 
 	private
 		def assignment_params
-			params.require(:assignment).permit(:subject, :content, :due_date, :attachment, :group_id)
+			params.require(:assignment).permit(:subject, :content, :due_date, :attachment, :group_id, :user_id)
 		end
 
 end

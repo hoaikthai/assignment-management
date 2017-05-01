@@ -35,8 +35,9 @@ class SubmissionsController < ApplicationController
 	end
 
 	def destroy
-		submission = Submission.find_by(user_id: params[:user_id], assignment_id: params[:assignment_id])
+		submission = Submission.find(params[:id])
 		submission.delete unless submission.nil?
+		render json: { message: "Delete successfully" }, status: 200
 	end
 
 	private

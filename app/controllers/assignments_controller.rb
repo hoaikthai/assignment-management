@@ -38,7 +38,8 @@ class AssignmentsController < ApplicationController
 	end
 
 	def destroy
-		assignment = Assignment.find_by(id: params[:assignment_id])
+		assignment = Assignment.find(params[:id])
+		assignment.submissions.each { |s| s.delete }
 		if assignment.delete
 			render json: { message: "Delete successfully" }, status: 200
 		else

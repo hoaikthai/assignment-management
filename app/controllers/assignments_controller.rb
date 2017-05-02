@@ -49,7 +49,7 @@ class AssignmentsController < ApplicationController
 
 	private
 		def assignment_params
-			params.require(:assignment).permit(:subject, :content, :due_date, :attachment, :group_id, :user_id)
+			params.require(:assignment).permit(:subject, :content, :due_date, :attachment, :group_id, :user_id, :file_format)
 		end
 
 end
